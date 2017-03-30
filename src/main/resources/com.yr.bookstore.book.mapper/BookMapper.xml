@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yr.bookstore.book.service.IBookService">
+    <!--添加图书-->
+    <insert id="saveBook" parameterType="map">
+          INSERT INTO book(title,author,price,sales,stock,imgPath)VALUES(#{title},#{author},#{price},#{sales},#{stock},#{imgPath})
+    </insert>
+    <!--删除图书-->
+    <delete id="delBook" parameterType="map">
+        DELETE FROM book where id=#{id}
+    </delete>
+    <!--修改图书-->
+    <update id="updateBook" parameterType="map">
+        UPDATE book SET title=#{title},author=#{author},price=#{price},sales=#{sales},stock=#{stock},imgPath=#{imgPath} WHERE id=#{id}
+    </update>
+    <!--查询图书-->
+    <select id="queryBook" parameterType="map" resultType="com.yr.bookstore.book.bean.Book">
+        SELECT id,title,author,price,sales,stock,imgPath FROM book WHERE id=#{id}
+    </select>
+    <!--查询所有图书-->
+    <select id="getAllBook" resultType="com.yr.bookstore.book.bean.Book">
+         SELECT id,title,author,price,sales,stock,imgPath FROM book
+    </select>
+
+    <!--查询分页图书-->
+    <select id="findBook" resultType="com.yr.bookstore.book.bean.Book">
+        SELECT id,title,author,price,sales,stock,imgPath FROM book limit #{index},#{pageSize}
+    </select>
+    <!--查询总记录数-->
+    <select id="totalRecord" resultType="int">
+        select count(*) FROM book;
+    </select>
+</mapper>
